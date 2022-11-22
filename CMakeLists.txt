@@ -10,5 +10,9 @@ find_package (mongoc-1.0 1.7 REQUIRED)
 include_directories(include)
 set(CMAKE_CXX_STANDARD 17)
 
+add_executable(check check_time.cpp include/Add.cpp include/Command.cpp include/Command.h include/Add.h include/global_var.h)
+
+
 add_executable(tasks_app main.cpp)
-link_libraries(task tasks_app)
+link_libraries(task_lib tasks_app)
+

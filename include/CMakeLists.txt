@@ -6,4 +6,4 @@ project(tasks_app)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_library(task Task.cpp)
+add_library(task_lib Task.cpp)
