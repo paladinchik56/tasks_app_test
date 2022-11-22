@@ -2,7 +2,7 @@
 #include <iostream>
 
 
-Task::Task(std::string name, std::string description, time_t date, std::string category): name(name), description(description),
+Task::Task(std::string name, std::string description, tm date, std::string category): name(name), description(description),
                                                                                     date(date), category(category) {};
 //Task::Task(std::vector<std::string> input_vector) {
 //    Task::Task(input_vector[0], [1]);

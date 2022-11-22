@@ -1,21 +1,17 @@
 #include <iostream>
-#include <hash_map>
 #include <ctime>
 #include <stdio.h>
-#include <string.h>
-#include <bits/stdc++.h>
-#include <bits/stdc++.h>
-#include <bits/stdc++.h>
+
 #include "Task.h"
 #include <any>
 #include <vector>
+#include "Add.h"
+#include <global_var.h>
 
 #define MAX_COMMAND_SIZE (MAX_TASK_NAME_SIZE+MAX_DESCRIPTION_SIZE+MAX_DATE_SIZE+MAX_CATEGORY_SIZE)
 
 using namespace std;
-unordered_map<string, any> g_commands;
-vector<string> g_input;
-vector<Task> g_tasks;
+
 
 void func1() {
     cout << "func1\n";
@@ -58,12 +54,15 @@ void simple_tokenizer(string s) {
         g_input.push_back(word);
     }
 }
+Add add1;
 
+void add2() {
+    add1.add_task();
+}
 int main(int argc, char const* argv[])
 {
-
     g_commands["func1"] = func1;
-    g_commands["add"] = add;
+    g_commands["add"] = add2;
 
     char s[MAX_COMMAND_SIZE];
 

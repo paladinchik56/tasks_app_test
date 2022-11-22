@@ -12,12 +12,12 @@
 class Task {
     std::string name;
     std::string description;
-    time_t date;
+    tm date;
     std::string category;
 
 public:
     Task() = delete;
-    Task(std::string name, std::string description, time_t date, std::string category);
+    Task(std::string name, std::string description, tm date, std::string category);
 //    Task(std::vector<std::string> input_vector);
     static bool check_valid(std::vector<std::string> input_vector) {
         if (input_vector[1].size() > MAX_TASK_NAME_SIZE) {

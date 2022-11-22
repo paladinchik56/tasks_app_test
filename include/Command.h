@@ -6,24 +6,31 @@
 #include <string>
 #include "global_var.h"
 #include <bits/stdc++.h>
-#include <array>
 
 class Command {
     std::string keyword;
 public:
-    virtual bool check_valid(std::vector <std::string> input_vector) = 0;
+    virtual bool check_valid() = 0;
 
     // A quick way to split strings separated via spaces.
- //todo do this func for check time in Task
-    static std::array split(std::string s) {
-        std::stringstream ss(s);
-        std::string word;
-        while (ss >> word) {
-//        cout << word << endl;
-            g_input.push_back(word);
-        }
-    }
 
+    static std::vector<std::string> string_split(std::string str, char separator) {
+        int startIndex = 0, endIndex = 0;
+        std::vector<std::string> strings;
+
+        for(int i=0;i <= str.size();i++)
+        {
+            if (str[i] == separator || i == str.size())
+            {
+                endIndex = i;
+                string temp;
+                temp.append(str, startIndex, endIndex - startIndex);
+                strings.push_back(temp);
+                startIndex = endIndex + 1;
+            }
+        }
+        return strings;
+    };
 };
 
 #endif //TASKS_APP_COMMAND_H

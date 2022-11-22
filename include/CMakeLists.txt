@@ -1,9 +1,12 @@
-cmake_minimum_required(VERSION 3.23)
+cmake_minimum_required(VERSION 3.22)
 project(tasks_app)
-#include(/opt/mongo/lib/cmake/libbsoncxx-3.7.0/libbsoncxx-config.cmake)
-#include(/opt/mongo/lib/cmake/libmongocxx-3.7.0/libmongocxx-config.cmake)
-#list(APPEND CMAKE_MODULE_PATH "${/opt/mongo}/cmake")
+file(GLOB cpp_files
+        "*.cpp"
+        "*.h"
+        )
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_library(task_lib Task.cpp)
+
+add_library(task_lib STATIC ${cpp_files} global_var.cpp)
+#add_library(task_lib STATIC Add.cpp Task.cpp Command.cpp)

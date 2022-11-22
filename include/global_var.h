@@ -8,9 +8,9 @@
 #include "Task.h"
 
 using namespace std;
-unordered_map<string, any> g_commands;
-vector<string> g_input;
-vector<Task> g_tasks;
+extern unordered_map<string, any> g_commands;
+extern vector<string> g_input;
+extern vector<Task> g_tasks;
 
 
 #endif //TASKS_APP_GLOBAL_VAR_H
