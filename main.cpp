@@ -6,6 +6,7 @@
 #include <any>
 #include <vector>
 #include "Add.h"
+#include "Done.h"
 #include <global_var.h>
 
 #define MAX_COMMAND_SIZE (MAX_TASK_NAME_SIZE+MAX_DESCRIPTION_SIZE+MAX_DATE_SIZE+MAX_CATEGORY_SIZE)
@@ -17,32 +18,32 @@ void func1() {
     cout << "func1\n";
 }
 
-void add() {
-
-    // check size of general input and every element
-    if (g_input.size() > 6) {
-        cout << "You write to much info.\n Program can work only with string not bigger than " <<endl;
-        return;
-    }
-
-    switch (g_input.size()) {
-        case 6:
-            g_input[3] += " " + g_input[4];
-            g_input[4] = g_input[5];
-            g_input.pop_back();
-        case 5:
-            if (Task::check_valid(g_input)) {
-                cout << "checker \n";
-            }
-            break;
-
-
-    }
-
-
-
-    cout << "add \n";
-}
+//void add() {
+//
+//    // check size of general input and every element
+//    if (g_input.size() > 6) {
+//        cout << "You write to much info.\n Program can work only with string not bigger than " <<endl;
+//        return;
+//    }
+//
+//    switch (g_input.size()) {
+//        case 6:
+//            g_input[3] += " " + g_input[4];
+//            g_input[4] = g_input[5];
+//            g_input.pop_back();
+//        case 5:
+//            if (Task::check_valid(g_input)) {
+//                cout << "checker \n";
+//            }
+//            break;
+//
+//
+//    }
+//
+//
+//
+//    cout << "add \n";
+//}
 
 
 // A quick way to split strings separated via spaces.
@@ -54,15 +55,24 @@ void simple_tokenizer(string s) {
         g_input.push_back(word);
     }
 }
-Add add1;
 
-void add2() {
-    add1.add_task();
+//block commands
+Add add;
+Done done;
+
+void add_handler() {
+    add.add_task();
 }
+
+void done_handler() {
+    done.done_task();
+}
+
 int main(int argc, char const* argv[])
 {
     g_commands["func1"] = func1;
-    g_commands["add"] = add2;
+    g_commands["add"] = add_handler;
+    g_commands["done"] = done_handler;
 
     char s[MAX_COMMAND_SIZE];
 

@@ -14,6 +14,7 @@ class Task {
     std::string description;
     tm date;
     std::string category;
+    bool done = false;
 
 public:
     Task() = delete;
@@ -39,6 +40,8 @@ public:
         return true;
     };
 
+    std::string get_name();
+    bool set_done(bool state);
 };
 
 #endif //TASKS_APP_TASK_H

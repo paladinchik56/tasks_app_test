@@ -3,11 +3,19 @@
 
 
 Task::Task(std::string name, std::string description, tm date, std::string category): name(name), description(description),
-                                                                                    date(date), category(category) {};
+                                                                                    date(date), category(category) {}
+
+std::string Task::get_name() {
+    return name;
+}
+
+bool Task::set_done(bool state) {
+    done = state;
+    return done;
+};
 //Task::Task(std::vector<std::string> input_vector) {
 //    Task::Task(input_vector[0], [1]);
 //}
-bool check_valid(std::vector<std::string> input_vector);
 //bool Task::check_valid(std::vector<std::string> input_vector) {
 //    if (input_vector[1].size() > MAX_TASK_NAME_SIZE) {
 //        std::cout << "The name of task can't be bigger than " << MAX_TASK_NAME_SIZE << std::endl;
