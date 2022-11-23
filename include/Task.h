@@ -1,12 +1,16 @@
 #ifndef TASKS_APP_TASK_H
 #define TASKS_APP_TASK_H
+
+
 #define MAX_TASK_NAME_SIZE 30
 #define MAX_DESCRIPTION_SIZE 1000
 #define MAX_DATE_SIZE 17
 #define MAX_CATEGORY_SIZE 30
+#define MAX_COMMAND_SIZE (MAX_TASK_NAME_SIZE+MAX_DESCRIPTION_SIZE+MAX_DATE_SIZE+MAX_CATEGORY_SIZE)
 
 #include <iostream>
 #include <vector>
+#include "Command.h"
 //add name description date category
 
 class Task {
@@ -42,6 +46,12 @@ public:
 
     std::string get_name();
     bool set_done(bool state);
+    bool set_name(std::string name);
+    bool set_description(std::string description);
+    bool set_date(tm date);
+    bool set_category(std::string category);
+
+    tm string_to_tm(std::string str);
 };
 
 #endif //TASKS_APP_TASK_H

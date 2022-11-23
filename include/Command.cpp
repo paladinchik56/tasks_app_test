@@ -1,6 +1,3 @@
-//
-// Created by paladinchik56 on 11/22/22.
-//
 #include "Command.h"
 
 bool Command::check_command_valid(std::string command) {

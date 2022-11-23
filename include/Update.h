@@ -5,8 +5,9 @@
 
 class Update: public Command {
     bool check_valid() override;
+    bool _update_task(Task* task);
 public:
-
+    bool update_task();
 };
 
 #endif //TASKS_APP_UPDATE_H
