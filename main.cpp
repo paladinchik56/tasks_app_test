@@ -8,10 +8,12 @@
 #include "Add.h"
 #include "Done.h"
 #include <global_var.h>
+#include <Delete.h>
 
 #define MAX_COMMAND_SIZE (MAX_TASK_NAME_SIZE+MAX_DESCRIPTION_SIZE+MAX_DATE_SIZE+MAX_CATEGORY_SIZE)
 
 using namespace std;
+extern vector<Task> g_tasks;
 
 
 void func1() {
@@ -59,6 +61,7 @@ void simple_tokenizer(string s) {
 //block commands
 Add add;
 Done done;
+Delete delete1;
 
 void add_handler() {
     add.add_task();
@@ -68,11 +71,16 @@ void done_handler() {
     done.done_task();
 }
 
+void delete_handler() {
+    delete1.delete_task();
+}
+
 int main(int argc, char const* argv[])
 {
     g_commands["func1"] = func1;
     g_commands["add"] = add_handler;
     g_commands["done"] = done_handler;
+    g_commands["delete"] = delete_handler;
 
     char s[MAX_COMMAND_SIZE];
 

@@ -1,17 +1,8 @@
 #include "Done.h"
 
 bool Done::check_valid() {
-
-    for (auto task: g_tasks) {
-        if (task.get_name() == g_input[1]) {
-            task.set_done(true);
-            std::cout << "task with name '" << g_input[1] << "' is done\n";
-            return true;
-        }
-    }
-
-    std::cout << "task with this name doesn't exist\n";
-    return false;
+    if (!check_command_valid("done")) return false;
+    return check_task_exist();
 }
 
 bool Done::done_task() {
@@ -19,6 +10,19 @@ bool Done::done_task() {
         return false;
     }
 
+    if (!check_task_exist()) {
+        return false;
+    }
+
+//todo this is not DRY concept. do pointer for func
+    for (auto task: g_tasks) {
+        if (task.get_name() == g_input[1]) {
+            task.set_done(true);
+            return true;
+        }
+    }
     return true;
 }
+
+
 

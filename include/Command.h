@@ -9,6 +9,11 @@
 
 class Command {
     std::string keyword;
+
+protected:
+    bool check_command_valid(std::string command);
+    bool check_task_exist();
+
 public:
     virtual bool check_valid() = 0;
 
