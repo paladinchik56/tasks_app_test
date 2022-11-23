@@ -9,8 +9,6 @@ class Done: public Command{
     bool check_valid() override;
 
 
-protected:
-
 
 public:
     bool done_task();
