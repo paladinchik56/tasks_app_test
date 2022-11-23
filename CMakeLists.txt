@@ -9,7 +9,7 @@ include_directories(include)
 add_subdirectory(include)
 link_directories(include)
 
-#add_executable(check check_time.cpp include/Add.cpp include/Command.cpp include/Command.h include/Add.h include/global_var.h)
+add_executable(check check_time.cpp )
 
 
 add_executable(tasks_app main.cpp)

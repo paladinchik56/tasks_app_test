@@ -38,7 +38,7 @@ bool Task::set_category(std::string category) {
 tm Task::string_to_tm(std::string str) {
 
     auto splited_string = Command::string_split(str, ' ');
-    std::vector<std::string> splited_date = Command::string_split(splited_string[0], ' ');
+    std::vector<std::string> splited_date = Command::string_split(splited_string[0], '-');
     time_t now = time(0);
     tm *ltm = localtime(&now);
     tm new_date;
