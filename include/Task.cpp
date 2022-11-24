@@ -11,8 +11,8 @@ std::string Task::get_name() {
 }
 
 bool Task::set_done(bool state) {
-    done = state;
-    return done;
+    status = state;
+    return status;
 }
 
 bool Task::set_name(std::string name) {
@@ -55,4 +55,20 @@ tm Task::string_to_tm(std::string str) {
     }
 
     return new_date;
+}
+
+std::string Task::get_description() {
+    return description;
+}
+
+tm Task::get_date() {
+    return date;
+}
+
+std::string Task::get_category() {
+    return category;
+}
+
+bool Task::get_status() {
+    return status;
 };

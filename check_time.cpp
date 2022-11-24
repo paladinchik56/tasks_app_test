@@ -1,6 +1,9 @@
 #include <iostream>
 #include <ctime>
 #include <vector>
+#include <map>
+#include <functional>
+
 using namespace std;
 
 void change(int& v) {
@@ -19,16 +22,23 @@ int main() {
     // print various components of tm structure.
     cout << "Year" << t.tm_year;
 
-
-    vector<int> vv = {1, 2, 3};
+    std::map<std::string, std::function<bool(int, int)>> comparisons;
+    comparisons["<"] = std::less<int>();
+    comparisons[">"] = std::greater<int>();
+    comparisons["<="] = std::less_equal<int>();
+    comparisons[">="] = std::greater_equal<int>();
+    comparisons["="] = std::equal_to<int>();
+    vector<int> vv;
     int i = 0;
 
-    for (int&  e: vv) {
-//        change(vv[i]);
-        change(e);
-        i+=1;
-    }
+    cout << comparisons["<"](1, 2) << endl;
+
+    for (i; i < 10; i++) vv.push_back(i);
+
+
     for (auto e: vv) {
-        cout << e << endl;
     }
+
+
+
 }

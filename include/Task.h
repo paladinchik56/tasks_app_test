@@ -17,7 +17,7 @@ class Task {
     std::string description;
     tm date;
     std::string category;
-    bool done = false;
+    bool status = false;
 
 public:
     Task() = delete;
@@ -44,13 +44,22 @@ public:
     };
 
     std::string get_name();
+    std::string get_description();
+    tm get_date();
+    std::string get_category();
+    bool get_status();
+
+
+
+
+
     bool set_done(bool state);
     bool set_name(std::string name);
     bool set_description(std::string description);
     bool set_date(tm date);
     bool set_category(std::string category);
 
-    tm string_to_tm(std::string str);
+    static tm string_to_tm(std::string str);
 };
 
 #endif //TASKS_APP_TASK_H

@@ -85,7 +85,7 @@ int main(int argc, char const* argv[])
 {
     g_commands["func1"] = func1;
     g_commands["add"] = add_handler;
-    g_commands["done"] = done_handler;
+    g_commands["status"] = done_handler;
     g_commands["delete"] = delete_handler;
     g_commands["update"] = update_handler;
 

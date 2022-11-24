@@ -35,8 +35,12 @@ bool Add::add_task() {
     date.tm_mon = int_month;
     date.tm_mday = int_day;
 
+    auto splited_time = string_split(splited_string[1], ':');
+
+    //without this that fields save random digits
+    date.tm_hour = -1;
+    date.tm_min = -1;
     if (splited_string.size() == 2) {
-        auto splited_time = string_split(splited_string[1], ':');
         auto int_hours = stoi(splited_time[0]);
         auto int_minutes = stoi(splited_time[1]);
 
@@ -47,11 +51,12 @@ bool Add::add_task() {
     Task task = Task(name, description, date, category);
     g_tasks.push_back(task);
 
+    cout << "task "<< name << "was created";
         return true;
     }
 
 bool Add::check_valid() {
-    if (5 > g_input.size() || 6 < g_input.size()) {
+    if (5 != g_input.size() && 6 != g_input.size()) {
         cout << "your data for add command not valid.\nshould be: add name description yyyy-mm-dd hh:mm (optional) category\n";
         return false;
     }
