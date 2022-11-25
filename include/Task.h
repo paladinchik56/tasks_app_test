@@ -18,6 +18,7 @@ class Task {
     tm date;
     std::string category;
     bool status = false;
+    std::vector<std::string> field_task = {"name", "description","date", "category", "status"};
 
 public:
     Task() = delete;

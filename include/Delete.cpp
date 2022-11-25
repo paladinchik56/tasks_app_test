@@ -23,6 +23,7 @@ bool Delete::delete_task() {
     for (int i=0; i < g_tasks.size(); i++) {
         if (g_tasks[i].get_name() == g_input[1]) {
             g_tasks.erase(g_tasks.begin()+i);
+            cout << "the task with name " << g_tasks[i].get_name() << " was deleted\n";
             return true;
         }
     }

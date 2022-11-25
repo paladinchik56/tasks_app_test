@@ -121,7 +121,7 @@ bool Select::select() {
 }
 
 bool Select::check_valid() {
-    // todo think how to check select valid
+    // here will check field words
     return false;
 }
 

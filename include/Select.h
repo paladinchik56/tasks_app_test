@@ -16,11 +16,13 @@ class Select: public Command {
     std::vector<Task> select_tasks;
     std::map<std::string, std::any> fields;
     std::vector<request> analysis_select_string();
+    std::vector<std::string> field_select;
 
     bool check_task(request req, Task task);
     bool check_valid() override;
 
     std::string delete_dbrackets(std::string val);
+//    bool analy
 public:
 
     bool select();

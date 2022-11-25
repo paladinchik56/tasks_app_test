@@ -101,8 +101,8 @@ bool Task::valid_description(std::string description) {
 }
 
 bool Task::valid_date(std::vector<std::string> splited_string) {
-    if (splited_string.empty()) {
-        cout << "name can't be empty\n";
+    if (splited_string[0].empty()) {
+        cout << "date can't be empty\n";
         return false;
     }
 
