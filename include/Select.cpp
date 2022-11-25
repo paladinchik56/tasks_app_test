@@ -12,29 +12,43 @@
 #include <ctime>
 #include <boost/date_time.hpp>
 
+#define MAX_SELECT_ARG 100
 
-std::vector<request> Select::analysis_select_string(std::string select_string) {
-    std::vector <std::string> field_condition_operator = string_split(select_string, ' ');
+std::vector<request> Select::analysis_select_string() {
+
     std::vector <request> request_vector;
 
-    // todo now program can understand only data with time format: yyyy-mm-dd. NEED DO FOR  yyyy-mm-dd hh:mm
-    int batch_size  = 4;
+    request fields_operator_value;
 
-    // check have string_split
-//    if ((field_condition_operator.size() - 3) % 3 ) batch_size = 3;
-//    if ((field_condition_operator.size() - 3) % 4) batch_size = 4;
+    for (int i=0; i < g_input.size(); i++) {
+        if (g_input[i] == "where" || g_input[i] == "and") {
+            fields_operator_value.field = g_input[i + 1];
+            fields_operator_value.select_operator = g_input[i + 2];
+            fields_operator_value.value = g_input[i + 3];
 
-
-    // todo now it work only with *. do for all fields
-    if (field_condition_operator.size() > 3) {
-    request req;
-        for (int i=3; i < field_condition_operator.size(); i+=batch_size) {
-            req.field = field_condition_operator[i];
-            req.select_operator = field_condition_operator[i+1];
-            req.value = field_condition_operator[i+2];
-            request_vector.push_back(req);
+            // for date with time
+            if (i+4 < g_input.size() && g_input[i+4] != "and") fields_operator_value.value += g_input[i + 4];
+            request_vector.push_back(fields_operator_value);
         }
     }
+
+//    int batch_size  = 4;
+
+    // check have string_split
+//    if ((select_vector.size() - 3) % 3 ) batch_size = 3;
+//    if ((select_vector.size() - 3) % 4) batch_size = 4;
+
+
+//    // todo now it work only with *. do for all fields
+//    if (select_vector.size() > 3) {
+//    request req;
+//        for (int i=3; i < select_vector.size(); i+=batch_size) {
+//            req.field = select_vector[i];
+//            req.select_operator = select_vector[i + 1];
+//            req.value = select_vector[i + 2];
+//            request_vector.push_back(req);
+//        }
+//    }
 
 
     return request_vector;
@@ -43,27 +57,65 @@ std::vector<request> Select::analysis_select_string(std::string select_string) {
 
 bool Select::check_task(request req, Task task) {
 
-   // switch doesn't work with string..
+   // switch doesn't work with string.
 
    // reflection the field type
    // name, description and cat have the same data type
+// todo like
    if (req.field == "date") {
        decltype(task.get_date()) field;
        field = Task::string_to_tm(req.value);
 
-       if (field == task.get_date())
+       return compare_c_time_tm(field, task.get_date(), req.select_operator);
    }
    else if (req.field == "status") {
        decltype(task.get_status()) field;
        istringstream(req.value) >> std::boolalpha >> field;
+
+       return field == task.get_status();
    }
-   else  {
+   else {
        decltype(task.get_name()) field = req.value;
 
+       if (req.field == "name") return field == task.get_name();
+       if (req.field == "description") return field == task.get_description();
+       if (req.field == "category") return field == task.get_category();
    }
 
+   //todo write this error
     return false;
 }
+
+bool Select::select() {
+    if (!check_command_arguments("select", MAX_SELECT_ARG)) return false;
+
+
+    auto req_vector = analysis_select_string();
+    std::vector<Task> select_tasks;
+
+    if (req_vector.empty()) {
+        for (auto task: g_tasks) cout << task.get_name() << endl;
+    }
+
+    for (auto task: g_tasks) {
+        bool good_task = false;
+        for (auto req: req_vector) {
+            if (!check_task(req, task)) break;
+            good_task = true;
+        }
+        if (!good_task) continue;
+        cout << task.get_name() << endl;
+        select_tasks.push_back(task);
+    }
+
+    return true;
+}
+
+bool Select::check_valid() {
+    // todo think how to check select valid
+    return false;
+}
+
 
 
 

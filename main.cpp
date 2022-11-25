@@ -8,6 +8,7 @@
 #include "Add.h"
 #include "Done.h"
 #include "Update.h"
+#include "Select.h"
 #include <global_var.h>
 #include <Delete.h>
 #include <Update.h>
@@ -16,10 +17,6 @@
 using namespace std;
 extern vector<Task> g_tasks;
 
-
-void func1() {
-    cout << "func1\n";
-}
 
 //void add() {
 //
@@ -64,6 +61,7 @@ Add add;
 Done done;
 Delete delete1;
 Update update;
+Select select1;
 
 void add_handler() {
     add.add_task();
@@ -81,20 +79,29 @@ void update_handler() {
     update.update_task();
 }
 
+void select_handler() {
+    select1.select();
+}
+
 int main(int argc, char const* argv[])
 {
-    g_commands["func1"] = func1;
     g_commands["add"] = add_handler;
-    g_commands["status"] = done_handler;
+    g_commands["done"] = done_handler;
     g_commands["delete"] = delete_handler;
     g_commands["update"] = update_handler;
+    g_commands["select"] = select_handler;
+    g_commands["Select"] = select_handler;
 
     char s[MAX_COMMAND_SIZE];
 
     while (true) {
         // read cin stream, split his and push_back strings in g_input for identificate command
+        g_input.clear();
+        cin.clear();
         cin.getline(s, MAX_COMMAND_SIZE);
+
         simple_tokenizer(s);
+        if (g_input.empty()) continue;
         auto command = g_input[0];
         if (command == "exit") {
             return 0;
@@ -108,6 +115,6 @@ int main(int argc, char const* argv[])
         else {
             any_cast<void (*) ()> (func->second) ();
         }
-        g_input.clear();
+
     }
 }

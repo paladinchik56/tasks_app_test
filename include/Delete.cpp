@@ -4,7 +4,8 @@
 
 
 bool Delete::check_valid() {
-    if (!check_command_valid("delete")) return false;
+    if (!check_command_arguments("delete")) return false;
+
     return check_task_exist();
 
 }

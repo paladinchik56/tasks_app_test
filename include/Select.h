@@ -15,10 +15,13 @@ struct request {
 class Select: public Command {
     std::vector<Task> select_tasks;
     std::map<std::string, std::any> fields;
-    std::vector<request> analysis_select_string(std::string select_string);
+    std::vector<request> analysis_select_string();
 
     bool check_task(request req, Task task);
+    bool check_valid() override;
 
 public:
+
+    bool select();
 };
 #endif //TASKS_APP_SELECT_H

@@ -12,7 +12,7 @@ class Command {
     std::string keyword;
 
 protected:
-    bool check_command_valid(std::string command);
+    bool check_command_arguments(std::string command, int max_num_arguments=1);
     bool check_task_exist();
 
 public:

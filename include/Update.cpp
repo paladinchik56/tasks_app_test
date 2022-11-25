@@ -4,7 +4,9 @@
 #include <ctime>
 
 bool Update::check_valid() {
-    if (!check_command_valid("update")) return false;
+    if (!check_command_arguments("update")) return false;
+
+
     auto taskname = g_input[1];
 
     // not range-based in loop cause with range-based can't change the main val

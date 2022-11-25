@@ -1,7 +1,7 @@
 #include "Done.h"
 
 bool Done::check_valid() {
-    if (!check_command_valid("status")) return false;
+    if (!check_command_arguments("status")) return false;
     return check_task_exist();
 }
 

@@ -39,13 +39,14 @@ tm Task::string_to_tm(std::string str) {
 
     auto splited_string = Command::string_split(str, ' ');
     std::vector<std::string> splited_date = Command::string_split(splited_string[0], '-');
-    time_t now = time(0);
-    tm *ltm = localtime(&now);
     tm new_date;
 
     new_date.tm_year = stoi(splited_date[0]);
     new_date.tm_mon= stoi(splited_date[1]);
     new_date.tm_mday = stoi(splited_date[2]);
+
+    new_date.tm_hour = -1;
+    new_date.tm_min =  -1;
 
     if (splited_string.size() == 2) {
         auto splited_time = Command::string_split(splited_string[1], ':');

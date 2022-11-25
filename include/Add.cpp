@@ -24,6 +24,7 @@ bool Add::add_task() {
         tm date = tm();
 
 //check date for valid
+// todo fix with time
     auto splited_string = string_split(g_input[3], ' ');
     auto splited_date = string_split(splited_string[0], '-');
 
@@ -35,12 +36,12 @@ bool Add::add_task() {
     date.tm_mon = int_month;
     date.tm_mday = int_day;
 
-    auto splited_time = string_split(splited_string[1], ':');
 
     //without this that fields save random digits
     date.tm_hour = -1;
     date.tm_min = -1;
     if (splited_string.size() == 2) {
+        auto splited_time = string_split(splited_string[1], ':');
         auto int_hours = stoi(splited_time[0]);
         auto int_minutes = stoi(splited_time[1]);
 
@@ -51,7 +52,7 @@ bool Add::add_task() {
     Task task = Task(name, description, date, category);
     g_tasks.push_back(task);
 
-    cout << "task "<< name << "was created";
+    cout << "task with name - "<< name << " - was created\n";
         return true;
     }
 
@@ -74,6 +75,13 @@ bool Add::check_valid() {
         return false;
     }
 
+    // check, if input have time I will reconstruct here
+    if (g_input.size() == 6) {
+        g_input[3] += " " + g_input[4];
+        g_input[4] = g_input[5];
+        g_input.erase(g_input.begin() + 5);
+    }
+
     //check date for valid
     auto splited_string = string_split(g_input[3], ' ');
     auto splited_date = string_split(splited_string[0], '-');
@@ -90,7 +98,7 @@ bool Add::check_valid() {
 
     // check months for valid
     if (0 > stoi(splited_date[1]) || stoi(splited_date[1]) > 12) {
-        std::cout << "months should be 01 and 12\n";
+        std::cout << "months should be between 01 and 12\n";
         return false;
 
     }
@@ -105,12 +113,12 @@ bool Add::check_valid() {
     if (splited_string.size() == 2) {
         auto splited_time = string_split(splited_string[1], ':');
 
-        if (0 > stoi(splited_time[0]) || stoi(splited_date[0]) > 24) {
+        if (0 > stoi(splited_time[0]) || stoi(splited_time[0]) > 23) {
             cout << "hours should be between 00 and 24. yours: " << splited_time[0] << endl;
             return false;
         }
 
-        if (0 > stoi(splited_time[1]) || stoi(splited_date[1]) > 60) {
+        if (0 > stoi(splited_time[1]) || stoi(splited_time[1]) > 59) {
             cout << "minutes should be between 00 and 60. yours: " << splited_time[1] << endl;
             return false;
         }
