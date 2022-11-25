@@ -7,7 +7,7 @@
 #include <any>
 #include <vector>
 
-std::unordered_map<std::string, std::any> g_commands;
+std::map<std::string, std::any> g_commands;
 std::vector<std::string> g_input;
 std::vector<Task> g_tasks;
 

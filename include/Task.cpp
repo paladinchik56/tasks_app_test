@@ -149,6 +149,8 @@ bool Task::valid_date(std::vector<std::string> splited_string) {
     return true;
 }
 
+//std::vector<std::string> Task::field_task= {"name", "description","date", "category", "status"};
+
 bool Task::valid_category(std::string category) {
     if (category.size() > MAX_CATEGORY_SIZE) {
         std::cout << "The name of task can't be bigger than " << MAX_CATEGORY_SIZE << std::endl;
@@ -160,4 +162,9 @@ bool Task::valid_category(std::string category) {
         return false;
     }
     return true;
-};
+}
+
+//Task::field_task["ass"] = ;
+//std::map<std::string, std::any> Task::get_field_task() {
+//    return field_task;
+//};

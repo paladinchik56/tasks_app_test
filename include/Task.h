@@ -10,15 +10,23 @@
 
 #include <iostream>
 #include <vector>
+#include <map>
+#include <any>
+#include <string>
 //add name description date category
 
 class Task {
+    friend class Select;
     std::string name;
     std::string description;
     tm date;
     std::string category;
     bool status = false;
-    std::vector<std::string> field_task = {"name", "description","date", "category", "status"};
+
+    //todo friend for select
+    static std::map<std::string, std::any> field_task;
+//    field_task["asd"] =
+    static std::map<std::string, std::any> get_field_task();
 
 public:
     Task() = delete;

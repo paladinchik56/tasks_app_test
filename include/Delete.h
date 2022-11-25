@@ -6,6 +6,7 @@
 class Delete: private Command {
     bool check_valid() override;
 
+
 public:
     bool delete_task();
 

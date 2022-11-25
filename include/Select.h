@@ -4,6 +4,7 @@
 #include "Command.h"
 #include <map>
 #include <any>
+#include "Task.h"
 
 struct request {
     std::string field;
@@ -22,7 +23,8 @@ class Select: public Command {
     bool check_valid() override;
 
     std::string delete_dbrackets(std::string val);
-//    bool analy
+
+
 public:
 
     bool select();
