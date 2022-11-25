@@ -20,6 +20,7 @@ class Select: public Command {
     bool check_task(request req, Task task);
     bool check_valid() override;
 
+    std::string delete_dbrackets(std::string val);
 public:
 
     bool select();

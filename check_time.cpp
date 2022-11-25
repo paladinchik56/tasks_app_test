@@ -39,6 +39,7 @@ int main() {
     for (auto e: vv) {
     }
 
-
+    string val = "\"cat\"";
+    cout << val << endl << val.substr(1, val.size()-2);
 
 }

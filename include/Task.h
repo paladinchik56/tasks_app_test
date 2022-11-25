@@ -60,6 +60,11 @@ public:
     bool set_category(std::string category);
 
     static tm string_to_tm(std::string str);
+
+    static bool valid_name(std::string name);
+    static bool valid_description(std::string description);
+    static bool valid_date(std::vector<std::string> splited_string);
+    static bool valid_category(std::string category);
 };
 
 #endif //TASKS_APP_TASK_H

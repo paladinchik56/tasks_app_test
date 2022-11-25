@@ -72,4 +72,92 @@ std::string Task::get_category() {
 
 bool Task::get_status() {
     return status;
+}
+
+bool Task::valid_name(std::string name) {
+    if (name.size() > MAX_TASK_NAME_SIZE) {
+        std::cout << "The name of task can't be bigger than " << MAX_TASK_NAME_SIZE << std::endl;
+        return false;
+    }
+
+    if (name.empty()) {
+        cout << "name can't be empty\n";
+        return false;
+    }
+    return true;
+}
+
+bool Task::valid_description(std::string description) {
+    if (description.size() > MAX_DESCRIPTION_SIZE) {
+        std::cout << "The name of task can't be bigger than " << MAX_DESCRIPTION_SIZE << std::endl;
+        return false;
+    }
+
+    if (description.empty()) {
+        cout << "name can't be empty\n";
+        return false;
+    }
+    return true;
+}
+
+bool Task::valid_date(std::vector<std::string> splited_string) {
+    if (splited_string.empty()) {
+        cout << "name can't be empty\n";
+        return false;
+    }
+
+    auto splited_date = Command::string_split(splited_string[0], '-');
+
+    time_t now = time(0);
+    tm *ltm = localtime(&now);
+
+    //check years for valid
+    if (1970 > stoi(splited_date[0]) || stoi(splited_date[0]) > (ltm->tm_year+1900)) {
+        std::cout << "years should be between 1970 and " << ltm->tm_year+1900 << std::endl;
+        return false;
+
+    }
+
+    // check months for valid
+    if (0 > stoi(splited_date[1]) || stoi(splited_date[1]) > 12) {
+        std::cout << "months should be between 01 and 12\n";
+        return false;
+
+    }
+
+    // check days for valid
+    // now this lazy check. todo refactor this
+    if (0 > stoi(splited_date[2]) || stoi(splited_date[2]) > 31) {
+        std::cout << "days should between 01 and 31\n";
+        return false;
+    }
+
+    if (splited_string.size() == 2) {
+        auto splited_time = Command::string_split(splited_string[1], ':');
+
+        if (0 > stoi(splited_time[0]) || stoi(splited_time[0]) > 23) {
+            cout << "hours should be between 00 and 24. yours: " << splited_time[0] << endl;
+            return false;
+        }
+
+        if (0 > stoi(splited_time[1]) || stoi(splited_time[1]) > 59) {
+            cout << "minutes should be between 00 and 60. yours: " << splited_time[1] << endl;
+            return false;
+        }
+    }
+
+    return true;
+}
+
+bool Task::valid_category(std::string category) {
+    if (category.size() > MAX_CATEGORY_SIZE) {
+        std::cout << "The name of task can't be bigger than " << MAX_CATEGORY_SIZE << std::endl;
+        return false;
+    }
+
+    if (category.empty()) {
+        cout << "name can't be empty\n";
+        return false;
+    }
+    return true;
 };

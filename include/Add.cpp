@@ -9,6 +9,7 @@
 
 
 //bool Add::check_valid()
+using namespace  std;
 
 bool Add::add_task() {
         if (!check_valid()) {
@@ -62,18 +63,17 @@ bool Add::check_valid() {
         return false;
     }
 
-    if (g_input[1].size() > MAX_TASK_NAME_SIZE) {
-        std::cout << "The name of task can't be bigger than " << MAX_TASK_NAME_SIZE << std::endl;
-        return false;
-    }
+    if (!Task::valid_name(g_input[1])) return false;
+//    if (g_input[1].size() > MAX_TASK_NAME_SIZE) {
+//        std::cout << "The name of task can't be bigger than " << MAX_TASK_NAME_SIZE << std::endl;
+//        return false;
+//    }
+    if (!Task::valid_description(g_input[2])) return false;
     if (g_input[2].size() > MAX_DESCRIPTION_SIZE) {
         std::cout << "The description of task can't be bigger than " << MAX_DESCRIPTION_SIZE << std::endl;
         return false;
     }
-    if (g_input[3].size() > MAX_DATE_SIZE) {
-        std::cout << "The date of task can't be bigger than " << MAX_DATE_SIZE << std::endl;
-        return false;
-    }
+
 
     // check, if input have time I will reconstruct here
     if (g_input.size() == 6) {
@@ -83,53 +83,16 @@ bool Add::check_valid() {
     }
 
     //check date for valid
+    if (g_input[3].size() > MAX_DATE_SIZE) {
+        std::cout << "The date of task can't be bigger than " << MAX_DATE_SIZE << std::endl;
+        return false;
+    }
+
     auto splited_string = string_split(g_input[3], ' ');
-    auto splited_date = string_split(splited_string[0], '-');
+    if (!Task::valid_date(splited_string)) return false;
 
-    time_t now = time(0);
-    tm *ltm = localtime(&now);
+    if (!Task::valid_category(g_input[4])) return false;
 
-    //check years for valid
-    if (1970 > stoi(splited_date[0]) || stoi(splited_date[0]) > (ltm->tm_year+1900)) {
-        std::cout << "years should be between 1970 and " << ltm->tm_year+1900 << std::endl;
-        return false;
-
-    }
-
-    // check months for valid
-    if (0 > stoi(splited_date[1]) || stoi(splited_date[1]) > 12) {
-        std::cout << "months should be between 01 and 12\n";
-        return false;
-
-    }
-
-    // check days for valid
-    // now this lazy check. todo refactor this
-    if (0 > stoi(splited_date[2]) || stoi(splited_date[2]) > 31) {
-        std::cout << "days should between 01 and 31\n";
-        return false;
-    }
-
-    if (splited_string.size() == 2) {
-        auto splited_time = string_split(splited_string[1], ':');
-
-        if (0 > stoi(splited_time[0]) || stoi(splited_time[0]) > 23) {
-            cout << "hours should be between 00 and 24. yours: " << splited_time[0] << endl;
-            return false;
-        }
-
-        if (0 > stoi(splited_time[1]) || stoi(splited_time[1]) > 59) {
-            cout << "minutes should be between 00 and 60. yours: " << splited_time[1] << endl;
-            return false;
-        }
-    }
-
-
-
-    if (g_input[4].size() > MAX_DATE_SIZE) {
-        std::cout << "The category of task can't be bigger than " << MAX_DATE_SIZE << std::endl;
-        return false;
-    }
     return true;
 };
 

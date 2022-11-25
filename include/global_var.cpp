@@ -3,10 +3,13 @@
 #include <string>
 #include <map>
 #include <functional>
-using namespace std;
-unordered_map<string, any> g_commands;
-vector<string> g_input;
-vector<Task> g_tasks;
+#include <string>
+#include <any>
+#include <vector>
+
+std::unordered_map<std::string, std::any> g_commands;
+std::vector<std::string> g_input;
+std::vector<Task> g_tasks;
 
 bool compare_c_time_tm(tm date1, tm date2, std::string str_operator) {
 
