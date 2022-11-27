@@ -45,14 +45,14 @@ bool Update::_update_task(Task& task) {
     cout << "new date: ";
 
     std::cin.getline(new_date, MAX_DATE_SIZE);
-    if (!Task::valid_date(Command::string_split(new_date, ' '))) {
+    if (!Task::valid_date(string_split(new_date, ' '))) {
         cout << "date: \"" << new_description << "\" is not valid.\n";
         return false;
     }
 
     cout << "new category: ";
     std::cin.getline(new_category, MAX_CATEGORY_SIZE);
-    if (!Task::valid_date(Command::string_split(new_date, ' '))) {
+    if (!Task::valid_date(string_split(new_date, ' '))) {
         cout << "category: \"" << new_category << "\" is not valid.\n";
         return false;
     }
@@ -60,7 +60,7 @@ bool Update::_update_task(Task& task) {
     task.set_description(new_description);
     task.set_category(new_category);
 
-    tm new_time = Task::string_to_tm(new_date);
+    tm new_time = string_to_tm(new_date);
     task.set_date(new_time);
 
     task.set_category(new_category);

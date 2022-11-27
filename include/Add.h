@@ -8,7 +8,6 @@
 #include <bits/stdc++.h>
 
 class Add: public Command {
-
 public:
     bool check_valid() override;
 //    bool check_valid() override {

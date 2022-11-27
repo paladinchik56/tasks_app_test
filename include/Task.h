@@ -55,6 +55,7 @@ public:
     std::string get_name();
     std::string get_description();
     tm get_date();
+    std::string get_date_str();
     std::string get_category();
     bool get_status();
 
@@ -68,7 +69,6 @@ public:
     bool set_date(tm date);
     bool set_category(std::string category);
 
-    static tm string_to_tm(std::string str);
 
     static bool valid_name(std::string name);
     static bool valid_description(std::string description);

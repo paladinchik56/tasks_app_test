@@ -63,7 +63,7 @@ bool Select::check_task(request req, Task task) {
    // comparisons operators need only in date.
    if (req.field == "date") {
        decltype(task.get_date()) field;
-       field = Task::string_to_tm(req.value);
+       field = string_to_tm(req.value);
 
        return compare_c_time_tm(field, task.get_date(), req.select_operator);
    }

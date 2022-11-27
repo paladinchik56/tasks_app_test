@@ -94,7 +94,10 @@ bool Add::check_valid() {
     if (!Task::valid_category(g_input[4])) return false;
 
     return true;
-};
+}
+
+
+
 
 
 
