@@ -9,8 +9,6 @@ include_directories(include)
 add_subdirectory(include)
 link_directories(include)
 
-add_executable(check check_time.cpp )
-
 
 add_executable(tasks_app main.cpp)
 target_link_libraries(tasks_app task_lib)

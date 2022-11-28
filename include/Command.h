@@ -17,8 +17,6 @@ protected:
 public:
     virtual bool check_valid() = 0;
 
-    // A quick way to split strings separated via spaces.
-
 };
 
 #endif //TASKS_APP_COMMAND_H

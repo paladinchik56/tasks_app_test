@@ -105,9 +105,6 @@ bool Select::check_task(condition req, Task task) {
 
         return field == task.get_name();
    }
-
-   //todo write this error
-    return false;
 }
 
 bool Select::select() {
