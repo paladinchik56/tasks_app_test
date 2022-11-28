@@ -12,7 +12,7 @@ std::map<std::string, std::any> g_commands;
 std::vector<std::string> g_input;
 std::vector<Task> g_tasks;
 
-bool compare_c_time_tm(tm date2, tm date1, std::string str_operator) {
+bool compare_c_time_tm(tm date1, tm date2, std::string str_operator) {
 
 // todo can replace std::function for pointer on function for do code more faster
     std::map<std::string, std::function<bool(int, int)>> comparisons;
