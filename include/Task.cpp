@@ -6,12 +6,6 @@
 
 Task::Task(std::string name, std::string description, tm date, std::string category): name(name), description(description),
                                                                                     date(date), category(category) {
-    field_task["name"] = name;
-    field_task["description"] = description;
-    field_task["date"] = tm_to_string(date);
-    field_task["category"] = category;
-    field_task["status"] = to_string(status);
-
 }
 
 std::string Task::get_name() {
@@ -177,6 +171,11 @@ const bool Task::check_field(const string &key) {
 
 string Task::get_field_value(std::string const& field)
 {
+    field_task["name"] = name;
+    field_task["description"] = description;
+    field_task["date"] = tm_to_string(date);
+    field_task["category"] = category;
+    field_task["status"] = to_string(status);
 
     if (field == "") {
         return "";

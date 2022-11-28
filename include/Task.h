@@ -22,14 +22,10 @@ class Task {
     std::string category;
     bool status = false;
 
-    //todo friend for select
-//    friend bool Select::select()
     friend bool Select::select();
 
-//    static MyMap field_task;
     MyMap field_task;
     static const Task myTask;
-//    std::map<std::string, std::any> field_task;
 
 
 public:
