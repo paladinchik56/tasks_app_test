@@ -192,7 +192,7 @@ string Task::get_field_value(std::string const& field)
     field_task["description"] = description;
     field_task["date"] = tm_to_string(date);
     field_task["category"] = category;
-    field_task["status"] = to_string(status);
+    field_task["status"] = get_status_str();
 
     if (field == "") {
         return "";
