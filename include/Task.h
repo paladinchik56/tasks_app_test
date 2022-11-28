@@ -12,7 +12,7 @@
 #include "Select.h"
 //add name description date category
 
-typedef std::map<std::string, std::any> MyMap;
+typedef std::map<std::string, std::string> MyMap;
 
 class Task {
     friend class Select;
@@ -26,8 +26,8 @@ class Task {
 //    friend bool Select::select()
     friend bool Select::select();
 
-    static MyMap field_task;
-//    MyMap field_task;
+//    static MyMap field_task;
+    MyMap field_task;
     static const Task myTask;
 //    std::map<std::string, std::any> field_task;
 
@@ -80,7 +80,9 @@ public:
     static bool valid_date(std::vector<std::string> splited_string);
     static bool valid_category(std::string category);
 
-    static const bool check_field(std::string const& key);
+    const bool check_field(std::string const& key);
+
+    std::string get_field_value(std::string const& field);
 };
 
 #endif //TASKS_APP_TASK_H

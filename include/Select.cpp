@@ -40,10 +40,12 @@ std::vector<condition> Select::analysis_select_string() {
 
         if (!field_end) {
             if (g_input[i] == "*") {
-                select_fields[field_i] = g_input[i];
+                select_fields[field_i++] = g_input[i];
                 continue;
             }
-            select_fields[field_i] = delete_comma(g_input[i]);
+            auto s = g_input[i];
+            s = delete_comma(s);
+            select_fields[field_i++] = s;
         }
 
     }
@@ -54,18 +56,18 @@ std::vector<condition> Select::analysis_select_string() {
 bool Select::check_fields() {
     bool field_exist;
     // check for *
-    if (select_fields.size() == 1 && select_fields[0] == "*") {
+    if (select_fields[0] == "*") {
         select_fields = {"name", "description", "date", "category", "status"};
         return true;
     }
 
-    for (auto field: select_fields) {
-        field_exist = Task::check_field(field);
-        if (!field_exist) {
-            cout << "field \"" << field << "doesn't exist\n";
-            return false;
-        }
-    }
+//    for (auto field: select_fields) {
+//        field_exist = task.check_field(field);
+//        if (!field_exist) {
+//            cout << "field \"" << field << "doesn't exist\n";
+//            return false;
+//        }
+//    }
     return true;
 }
 
@@ -112,27 +114,31 @@ bool Select::select() {
     if (!check_command_arguments("select", MAX_SELECT_ARG)) return false;
 
     // check fields for select
-    if (!check_fields()) return false;
 
     auto req_vector = analysis_select_string();
+
+    if (!check_fields()) return false;
+
     std::vector<Task> select_tasks;
 
-    if (req_vector.empty()) {
-        for (auto task: g_tasks) cout << task.get_name() << endl;
-    }
+//    if (req_vector.empty()) {
+//        for (auto task: g_tasks) cout << task.get_name() << endl;
+//    }
 
     for (auto task: g_tasks) {
-        bool good_task = false;
+        bool good_task = req_vector.empty();
         for (auto req: req_vector) {
             if (!check_task(req, task)) break;
             good_task = true;
         }
         if (!good_task) continue;
 
-        for (auto field:select_fields) {
-            auto func = task.myTask.field_task.find(field);
-            cout << any_cast<std::string (*) ()> (func->second) () << endl;
+        for (const auto& field:select_fields) {
+            auto select_value = task.get_field_value(field);
+            if (select_value == "") continue;
+            cout << select_value << " ";
         }
+        cout << endl;
         select_tasks.push_back(task);
     }
 
@@ -150,8 +156,9 @@ std::string Select::delete_dbrackets(std::string val) {
     return val.substr(1, val.size()-2);
 }
 
-std::string Select::delete_comma(std::string val) {
-    return val.substr(0, val.size()-1);
+std::string Select::delete_comma(std::string s) {
+    if (s.find(',') != std::string::npos) s = s.substr(0, s.size()-1);
+    return s;
 }
 
 

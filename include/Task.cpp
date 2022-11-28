@@ -6,11 +6,11 @@
 
 Task::Task(std::string name, std::string description, tm date, std::string category): name(name), description(description),
                                                                                     date(date), category(category) {
-    field_task["name"] = get_name();
-    field_task["description"] = get_description();
-    field_task["date"] = get_date_str();
-    field_task["category"] = get_category();
-    field_task["status"] = get_status_str();
+    field_task["name"] = name;
+    field_task["description"] = description;
+    field_task["date"] = tm_to_string(date);
+    field_task["category"] = category;
+    field_task["status"] = to_string(status);
 
 }
 
@@ -171,9 +171,25 @@ const bool Task::check_field(const string &key) {
     MyMap::const_iterator find = field_task.find(key);
     if (find != field_task.end()) {
         return true;
-//        return find->second();
     }
     return false;
+}
+
+string Task::get_field_value(std::string const& field)
+{
+
+    if (field == "") {
+        return "";
+    }
+    MyMap::const_iterator find = field_task.find(field);
+    if (find != field_task.end())
+    {
+        // If we find it return the field.
+        return find->second;
+    }
+
+    cout << "field \"" + field + "\" doesn't exist\n";
+    return "";
 }
 
 
