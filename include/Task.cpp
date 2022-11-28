@@ -99,6 +99,14 @@ bool Task::valid_date(std::vector<std::string> splited_string) {
     time_t now = time(0);
     tm *ltm = localtime(&now);
 
+    // check string for no valid symbols
+    for (auto date: splited_date) {
+        if (!is_number(date)) {
+            cout << "invalid symbol in date" << std::endl;
+            return false;
+        }
+    }
+
     //check years for valid
     if (1970 > stoi(splited_date[0]) || stoi(splited_date[0]) > (ltm->tm_year+1900)) {
         std::cout << "years should be between 1970 and " << ltm->tm_year+1900 << std::endl;
@@ -122,6 +130,14 @@ bool Task::valid_date(std::vector<std::string> splited_string) {
 
     if (splited_string.size() == 2) {
         auto splited_time = string_split(splited_string[1], ':');
+
+        // check string for invalid symbols
+        for (auto time: splited_time) {
+            if (!is_number(time)) {
+                cout << "invalid symbol in time" << std::endl;
+                return false;
+                }
+            }
 
         if (0 > stoi(splited_time[0]) || stoi(splited_time[0]) > 23) {
             cout << "hours should be between 00 and 24. yours: " << splited_time[0] << endl;
@@ -157,7 +173,8 @@ std::string Task::get_date_str() {
 }
 
 std::string Task::get_status_str() {
-    return to_string(status);
+    if (status) return "done";
+    return "undone";
 }
 
 const bool Task::check_field(const string &key) {

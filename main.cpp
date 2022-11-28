@@ -94,6 +94,8 @@ int main(int argc, char const* argv[])
 
     char s[MAX_COMMAND_SIZE];
 
+    cout << "The program is start. Create your task! \n";
+
     while (true) {
         // read cin stream, split his and push_back strings in g_input for identificate command
         g_input.clear();
