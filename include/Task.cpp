@@ -5,7 +5,14 @@
 
 
 Task::Task(std::string name, std::string description, tm date, std::string category): name(name), description(description),
-                                                                                    date(date), category(category) {}
+                                                                                    date(date), category(category) {
+    field_task["name"] = get_name();
+    field_task["description"] = get_description();
+    field_task["date"] = get_date_str();
+    field_task["category"] = get_category();
+    field_task["status"] = get_status_str();
+
+}
 
 std::string Task::get_name() {
     return name;
@@ -155,7 +162,18 @@ std::string Task::get_date_str() {
     return tm_to_string(date);
 }
 
-//Task::field_task["ass"] = ;
-//std::map<std::string, std::any> Task::get_field_task() {
-//    return field_task;
-//};
+std::string Task::get_status_str() {
+    return to_string(status);
+}
+
+const bool Task::check_field(const string &key) {
+//    MyMap::const_iterator find = MyMap.task_fields.find(key);
+    MyMap::const_iterator find = field_task.find(key);
+    if (find != field_task.end()) {
+        return true;
+//        return find->second();
+    }
+    return false;
+}
+
+

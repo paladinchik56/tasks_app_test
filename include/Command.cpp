@@ -1,4 +1,5 @@
 #include "Command.h"
+#include "Task.h"
 
 bool Command::check_command_arguments(std::string command, int max_num_arguments) {
     if (g_input.size() == 1) {

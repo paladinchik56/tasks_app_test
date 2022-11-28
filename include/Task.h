@@ -2,18 +2,17 @@
 #define TASKS_APP_TASK_H
 
 
-#define MAX_TASK_NAME_SIZE 30
-#define MAX_DESCRIPTION_SIZE 1000
-#define MAX_DATE_SIZE 17
-#define MAX_CATEGORY_SIZE 30
-#define MAX_COMMAND_SIZE (MAX_TASK_NAME_SIZE+MAX_DESCRIPTION_SIZE+MAX_DATE_SIZE+MAX_CATEGORY_SIZE)
+
 
 #include <iostream>
 #include <vector>
 #include <map>
 #include <any>
 #include <string>
+#include "Select.h"
 //add name description date category
+
+typedef std::map<std::string, std::any> MyMap;
 
 class Task {
     friend class Select;
@@ -24,9 +23,14 @@ class Task {
     bool status = false;
 
     //todo friend for select
-    static std::map<std::string, std::any> field_task;
-//    field_task["asd"] =
-    static std::map<std::string, std::any> get_field_task();
+//    friend bool Select::select()
+    friend bool Select::select();
+
+    static MyMap field_task;
+//    MyMap field_task;
+    static const Task myTask;
+//    std::map<std::string, std::any> field_task;
+
 
 public:
     Task() = delete;
@@ -58,6 +62,7 @@ public:
     std::string get_date_str();
     std::string get_category();
     bool get_status();
+    std::string get_status_str();
 
 
 
@@ -74,6 +79,8 @@ public:
     static bool valid_description(std::string description);
     static bool valid_date(std::vector<std::string> splited_string);
     static bool valid_category(std::string category);
+
+    static const bool check_field(std::string const& key);
 };
 
 #endif //TASKS_APP_TASK_H

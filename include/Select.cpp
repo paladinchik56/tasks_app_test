@@ -12,14 +12,19 @@
 
 #define MAX_SELECT_ARG 100
 
-std::vector<request> Select::analysis_select_string() {
+std::vector<condition> Select::analysis_select_string() {
+    //clear before analyse
+    select_fields = {};
+    std::vector <condition> conditions;
 
-    std::vector <request> request_vector;
+    condition fields_operator_value;
 
-    request fields_operator_value;
+    bool field_end = false;
 
-    for (int i=0; i < g_input.size(); i++) {
+    for (int i=1, field_i=0; i < g_input.size(); i++) {
+
         if (g_input[i] == "where" || g_input[i] == "and") {
+            field_end = true;
             fields_operator_value.field = g_input[i + 1];
             fields_operator_value.select_operator = g_input[i + 2];
 
@@ -27,34 +32,44 @@ std::vector<request> Select::analysis_select_string() {
             if (i+4 < g_input.size() && g_input[i+4] != "and") g_input[i+3] += " " + g_input[i + 4];
             fields_operator_value.value = delete_dbrackets(g_input[i + 3]);
 
-            request_vector.push_back(fields_operator_value);
+            conditions.push_back(fields_operator_value);
+
+            // this for don't check next if
+            continue;
         }
+
+        if (!field_end) {
+            if (g_input[i] == "*") {
+                select_fields[field_i] = g_input[i];
+                continue;
+            }
+            select_fields[field_i] = delete_comma(g_input[i]);
+        }
+
     }
 
-//    int batch_size  = 4;
-
-    // check have string_split
-//    if ((select_vector.size() - 3) % 3 ) batch_size = 3;
-//    if ((select_vector.size() - 3) % 4) batch_size = 4;
-
-
-//    // todo now it work only with *. do for all fields
-//    if (select_vector.size() > 3) {
-//    request req;
-//        for (int i=3; i < select_vector.size(); i+=batch_size) {
-//            req.field = select_vector[i];
-//            req.select_operator = select_vector[i + 1];
-//            req.value = select_vector[i + 2];
-//            request_vector.push_back(req);
-//        }
-//    }
-
-
-    return request_vector;
+    return conditions;
 }
 
+bool Select::check_fields() {
+    bool field_exist;
+    // check for *
+    if (select_fields.size() == 1 && select_fields[0] == "*") {
+        select_fields = {"name", "description", "date", "category", "status"};
+        return true;
+    }
 
-bool Select::check_task(request req, Task task) {
+    for (auto field: select_fields) {
+        field_exist = Task::check_field(field);
+        if (!field_exist) {
+            cout << "field \"" << field << "doesn't exist\n";
+            return false;
+        }
+    }
+    return true;
+}
+
+bool Select::check_task(condition req, Task task) {
 
    // switch doesn't work with string.
 
@@ -96,6 +111,8 @@ bool Select::check_task(request req, Task task) {
 bool Select::select() {
     if (!check_command_arguments("select", MAX_SELECT_ARG)) return false;
 
+    // check fields for select
+    if (!check_fields()) return false;
 
     auto req_vector = analysis_select_string();
     std::vector<Task> select_tasks;
@@ -111,9 +128,15 @@ bool Select::select() {
             good_task = true;
         }
         if (!good_task) continue;
-        cout << task.get_name() << endl;
+
+        for (auto field:select_fields) {
+            auto func = task.myTask.field_task.find(field);
+            cout << any_cast<std::string (*) ()> (func->second) () << endl;
+        }
         select_tasks.push_back(task);
     }
+
+
 
     return true;
 }
@@ -125,6 +148,10 @@ bool Select::check_valid() {
 
 std::string Select::delete_dbrackets(std::string val) {
     return val.substr(1, val.size()-2);
+}
+
+std::string Select::delete_comma(std::string val) {
+    return val.substr(0, val.size()-1);
 }
 
 

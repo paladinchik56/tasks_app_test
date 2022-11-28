@@ -6,6 +6,7 @@
 #include <string>
 #include <any>
 #include <vector>
+#include "Task.h"
 
 std::map<std::string, std::any> g_commands;
 std::vector<std::string> g_input;

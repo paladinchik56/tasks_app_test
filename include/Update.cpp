@@ -2,6 +2,8 @@
 #include "global_var.h"
 #include <iostream>
 #include <ctime>
+#include "Task.h"
+
 
 bool Update::check_valid() {
     if (!check_command_arguments("update")) return false;

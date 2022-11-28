@@ -1,4 +1,5 @@
 #include "Done.h"
+#include "Task.h"
 
 bool Done::check_valid() {
     if (!check_command_arguments("status")) return false;
