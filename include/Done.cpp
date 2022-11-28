@@ -16,7 +16,7 @@ bool Done::done_task() {
     }
 
 //todo this is not DRY concept. do pointer for func
-    for (auto task: g_tasks) {
+    for (auto& task: g_tasks) {
         if (task.get_name() == g_input[1]) {
             task.set_done(true);
             cout << "the task with name " << task.get_name() << " is done\n";

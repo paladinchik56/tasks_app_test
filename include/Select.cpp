@@ -86,8 +86,12 @@ bool Select::check_task(condition req, Task task) {
    }
    else if (req.field == "status") {
        decltype(task.get_status()) field;
-       istringstream(req.value) >> std::boolalpha >> field;
-
+       if (req.value == "done") {
+           field = true;
+       }
+        if (req.value == "undone") {
+            field = false;
+        }
        return field == task.get_status();
    }
    else {
