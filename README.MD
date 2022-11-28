@@ -14,7 +14,7 @@ make <br>
 
 ## Список комманд:
 >>  пример: taskname description 2022-12-23 00:00 category_name
->>>	каждый параметр вбивается "одним словом". 
+>>>	каждый параметр вбивается "одним словом" в двойных кавычках. 
 >>>	время указывать опционально, но дату - обязательно.
 
 >> update taskname
@@ -23,7 +23,7 @@ make <br>
 
 >>	done taskname
 
->>	select name, description, date, status where name = "taskname" and date <= 2022-12-23 00:12
+>>	select name, description, date, status where name = "taskname" and date <= "2022-12-23 00:12" and status = "undone"
 
 >>>	можно использоваться *, чтобы вывести все параметры (name, description, date, status = *)
 	
